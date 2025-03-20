@@ -5,7 +5,7 @@ This small tutorial helps users work with clusters using SLURM and is specifical
 
 # 1- SSH setting
 ## Linux/WSL/MacOS
-download the ssh key then execute the following commands : 
+Download the ssh key then execute the following commands : 
 ```
 mkdir -p ~/.ssh && mv ~/Downloads/id_rsa.ceci ~/.ssh
 
@@ -16,18 +16,18 @@ dos2unix ~/.ssh/id_rsa.ceci
 ssh-keygen -yf ~/.ssh/id_rsa.ceci > ~/.ssh/id_rsa.ceci.pub
 ```
 
-create config file : 
+Create config file : 
 
-- use the following link to generate the config file https://www.ceci-hpc.be/sshconfig.html
-- copy the generated config using : 
+- Use the following link to generate the config file https://www.ceci-hpc.be/sshconfig.html
+- Copy the generated config using : 
     ```
     nano ~/.ssh/config
     ```
-- make sure the file has correct permissions : 
+- Make sure the file has correct permissions : 
 ```
 chmod 600 ~/.ssh/config
 ```
-restart the terminal and try to connect to the cluster :
+Restart the terminal and try to connect to the cluster :
 ```
 ssh cecicluster
 ```
@@ -69,11 +69,10 @@ srun -p debug-gpu -A mmfusion -N 1 --gpus=1 --cpus-per-task=16 --mem=100G -t 2:0
 | `--ntasks`             | Specifies the number of tasks to be run.                                    |
 | `--ntasks-per-node`    | Specifies the number of tasks to be run per node.                           |
 
-Example usage:
 
 
 # 3- Tmux
-Tmux is a terminal multiplexer; it allows you to create several "pseudo terminals" from a single terminal. it comes in handy when you want to run a long job and you want to keep it running in background even when you exit the terminal.
+Tmux is a terminal multiplexer; it allows you to create several "pseudo terminals" from a single terminal. it comes in handy when you want to run a long job and you want to keep it running in the background even when you exit the terminal.
 To create a new tmux session, run the following command : 
 ```
 tmux new -s session_name
@@ -88,7 +87,7 @@ tmux attach -t session_name
 ```
 
 # 4- Job submission
-for longer trainings, you must use job submission using `sbatch` like follows : 
+For longer trainings, you must use job submission using `sbatch` like follows : 
 ```
 sbatch job_submission_config.sh
 
@@ -144,12 +143,30 @@ To check the status of  your job, run the following command :
 ```
 squeue --user=username
 ```
+Example of output :
+```
+      JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+           7306729       gpu  gpu_job    oamel  R      26:39      1 cna020
+```
 You can also check the status in details of your job(s) by running the following command :
 ```
 sacct --user=username
 ```
+Example of output : 
 
+```
+JobID           JobName  Partition    Account  AllocCPUS      State ExitCode
+------------ ---------- ---------- ---------- ---------- ---------- --------
+7306729         gpu_job        gpu   mmfusion         16    RUNNING      0:0
+7306729.bat+      batch              mmfusion         16    RUNNING      0:0
+7306729.ext+     extern              mmfusion         16    RUNNING      0:0
+7306729.0        hd-bet              mmfusion         16    RUNNING      0:0
+```
 
+To kill a job use `scancel` : 
+```
+scancel JobID 
+```
 # 4- Available Space
 
 For Lucia cluster, you can check the available space on the cluster by running the following command : 
