@@ -3,7 +3,7 @@ This small tutorial helps users work with clusters using SLURM and is specifical
 
 
 
-# SSH setting
+# 1- SSH setting
 ## Linux/WSL/MacOS
 download the ssh key then execute the following commands : 
 ```
@@ -39,7 +39,7 @@ ssh cecicluster
 Todo
 
 
-# Modules
+# 2- Modules
 
 To load a python module, run the following command :
 ```
@@ -72,23 +72,28 @@ srun -p debug-gpu -A mmfusion -N 1 --gpus=1 --cpus-per-task=16 --mem=100G -t 2:0
 Example usage:
 
 
-# Tmux
+# 3- Tmux
 Tmux is a terminal multiplexer; it allows you to create several "pseudo terminals" from a single terminal. it comes in handy when you want to run a long job and you want to keep it running in background even when you exit the terminal.
-to create a new tmux session, run the following command : 
+To create a new tmux session, run the following command : 
 ```
 tmux new -s session_name
 ```
-to list all tmux sessions, run the following command : 
+To list all tmux sessions, run the following command : 
 ```
 tmux ls
 ```
-to attach to a tmux session, run the following command : 
+To attach to a tmux session, run the following command : 
 ```
 tmux attach -t session_name
 ```
 
-# Job submission
-for longer trainings, you must use job submission using `sbatch`. For that you have to prepare a config file which are divided into n parts :
+# 4- Job submission
+for longer trainings, you must use job submission using `sbatch` like follows : 
+```
+sbatch job_submission_config.sh
+
+```
+For that you have to prepare a config file which is divided into 2 parts :
 
 **Part 1 : computation ressources allocation**
 
@@ -133,27 +138,29 @@ date
 
 
 
-# Job monitoring
+# 3- Job monitoring
 
-to check the status of  your job, run the following command :
+To check the status of  your job, run the following command :
 ```
 squeue --user=username
 ```
-you can also check the status in details of your job(s) by running the following command :
+You can also check the status in details of your job(s) by running the following command :
 ```
 sacct --user=username
 ```
 
 
-# Available Space
+# 4- Available Space
 
-for Lucia cluster, you can check the available space on the cluster by running the following command : 
+For Lucia cluster, you can check the available space on the cluster by running the following command : 
 ```
 mmlsquota -g PROJECTNAME --block-size g ess
 ```
 
-# Other useful commands
-In order to run notebook on the cluster using a specific python virtual environment, you need to follow the following steps : 
+# 5- Other useful commands
+
+## Jupyter kernel
+- In order to run notebook on the cluster using a specific python virtual environment, you need to follow the following steps : 
 
 -  Create a virtual environment if not done yet : 
 ```
@@ -172,11 +179,20 @@ pip install  ipykernel
 python -m ipykernel install --user --name=ENVNAME
 ```
 
-If you want to send a file to the cluster, use this command:
+
+## Downloading/Uploading files
+
+You can use `scp` to upload or download files between your local machine and cluster
+- upload to cluster
 ```
-scp  /path/to/local/file username@lucia:/path/to/remote/directory
+scp file USERNAME@lucia:path/to/destination
 ```
+- Download to local machine
+```
+scp USERNAME@lucia:path/to/file path/to/destination/in/localmachine 
+```
+
 
 # Other useful links 
 
-to set VPN UMONS , follow this tutorial : https://alumniumonsac.sharepoint.com/sites/DirectiondesServicesInformatiques/SitePages/Connexion-VPN.aspx?web=1
+To set VPN UMONS , follow this tutorial : https://alumniumonsac.sharepoint.com/sites/DirectiondesServicesInformatiques/SitePages/Connexion-VPN.aspx?web=1
