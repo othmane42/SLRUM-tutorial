@@ -88,6 +88,50 @@ tmux attach -t session_name
 ```
 
 # Job submission
+for longer trainings, you must use job submission using `sbatch`. For that you have to prepare a config file which are divided into n parts :
+
+**Part 1 : computation ressources allocation**
+
+
+```
+#!/bin/bash
+#SBATCH --job-name=gpu_job
+#SBATCH --output=outputfilename.out
+#SBATCH --partition=gpu  # mendatory to allocate gpu ressources
+#SBATCH --nodes=1 # mostly enough for model trainings
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=16  # Set CPU allocation (number of cpu cores)
+#SBATCH --ntasks=1
+#SBATCH --mem=100G  # Adjust memory as needed
+#SBATCH --gpus=1   # Adjust GPU count as needed
+#SBATCH --time=6:30:00  # Adjust runtime as needed
+#SBATCH --account=PROJECTNAME  # Your project allocation
+``` 
+
+**Part 2 : Environment Setup and Job Execution**
+
+```
+
+echo "----------------- Setting Python Environment ------------------"
+
+# Load the needed module
+module load devel/python/3.9.13
+
+# Activate Python environment
+source /gpfs/home/acad/umons-info/oamel/mm_frameworkEnv/bin/activate
+
+
+echo "--------------- Running the Code ---------------"
+echo -n "This run started on: "
+date
+
+srun python /path/to/script.py 
+
+echo -n "This run completed on: "
+date
+```
+
+
 
 # Job monitoring
 
