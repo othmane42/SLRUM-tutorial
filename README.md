@@ -1,6 +1,6 @@
-# SLRUM-tutorial
+# SLURM-tutorial
 This small tutorial helps users work with clusters using SLURM and is specifically adapted for CECI cluster users.
-
+First you need to create an acount [here](https://login.ceci-hpc.be/init/)
 
 
 # 1- SSH setting
@@ -29,7 +29,7 @@ chmod 600 ~/.ssh/config
 ```
 Restart the terminal and try to connect to the cluster :
 ```
-ssh cecicluster
+ssh lucia
 ```
 
 
@@ -51,7 +51,7 @@ module avail
 ```
 Some of them come with tensorflow already installed for instance.
 
-# Interactive session
+# 3- Interactive session
 If you want to run job interactively, you can use the following command : 
 ```
 srun -p debug-gpu -A mmfusion -N 1 --gpus=1 --cpus-per-task=16 --mem=100G -t 2:00:00 --pty bash
@@ -71,7 +71,7 @@ srun -p debug-gpu -A mmfusion -N 1 --gpus=1 --cpus-per-task=16 --mem=100G -t 2:0
 
 
 
-# 3- Tmux
+# 4- Tmux
 Tmux is a terminal multiplexer; it allows you to create several "pseudo terminals" from a single terminal. it comes in handy when you want to run a long job and you want to keep it running in the background even when you exit the terminal.
 To create a new tmux session, run the following command : 
 ```
@@ -86,7 +86,7 @@ To attach to a tmux session, run the following command :
 tmux attach -t session_name
 ```
 
-# 4- Job submission
+# 5- Job submission
 For longer trainings, you must use job submission using `sbatch` like follows : 
 ```
 sbatch job_submission_config.sh
@@ -137,7 +137,7 @@ date
 
 
 
-# 3- Job monitoring
+# 6- Job monitoring
 
 To check the status of  your job, run the following command :
 ```
@@ -167,14 +167,14 @@ To kill a job use `scancel` :
 ```
 scancel JobID 
 ```
-# 4- Available Space
+# 7- Available Space
 
 For Lucia cluster, you can check the available space on the cluster by running the following command : 
 ```
 mmlsquota -g PROJECTNAME --block-size g ess
 ```
 
-# 5- Other useful commands
+# 8- Other useful commands
 
 ## Jupyter kernel
 - In order to run notebook on the cluster using a specific python virtual environment, you need to follow the following steps : 
@@ -210,6 +210,6 @@ scp USERNAME@lucia:path/to/file path/to/destination/in/localmachine
 ```
 
 
-# Other useful links 
+# 9- Other useful links 
 
 To set VPN UMONS , follow this tutorial : https://alumniumonsac.sharepoint.com/sites/DirectiondesServicesInformatiques/SitePages/Connexion-VPN.aspx?web=1
