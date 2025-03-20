@@ -32,7 +32,7 @@ Restart the terminal and try to connect to the cluster :
 ssh lucia
 ```
 
-
+(If you encounter ssh problems, check also the documentation from LUCIA/CECI [Frequently Encountered Problems](https://support.ceci-hpc.be/doc/_contents/QuickStart/ConnectingToTheClusters/FromAUnixComputer.html#frequently-encountered-problems) )
 
 ## Windows
 
@@ -56,6 +56,7 @@ If you want to run job interactively, you can use the following command :
 ```
 srun -p debug-gpu -A mmfusion -N 1 --gpus=1 --cpus-per-task=16 --mem=100G -t 2:00:00 --pty bash
 ```
+**Caution:** you can only used interactive jobs for 2h max in LUCIA. Otherwise, use sbatch (see the related Section below).
 | Parameter              | Description                                                                 |
 |------------------------|-----------------------------------------------------------------------------|
 | `-p` or `--partition`  | Specifies the partition (queue) to which the job should be submitted.       |
@@ -69,7 +70,8 @@ srun -p debug-gpu -A mmfusion -N 1 --gpus=1 --cpus-per-task=16 --mem=100G -t 2:0
 | `--ntasks`             | Specifies the number of tasks to be run.                                    |
 | `--ntasks-per-node`    | Specifies the number of tasks to be run per node.                           |
 
-
+To check if the partition is available, use : 
+```sinfo -p debug-gpu``` 
 
 # 4- Tmux
 Tmux is a terminal multiplexer; it allows you to create several "pseudo terminals" from a single terminal. it comes in handy when you want to run a long job and you want to keep it running in the background even when you exit the terminal.
@@ -87,6 +89,8 @@ tmux attach -t session_name
 ```
 
 # 5- Job submission
+<u>Note:</u> A partition must be specified for the job, that you must adapt to your case see more info here: [LUCIA Partitions](https://doc.lucia.cenaero.be/job_scheduler/running_jobs/)
+
 For longer trainings, you must use job submission using `sbatch` like follows : 
 ```
 sbatch job_submission_config.sh
@@ -208,7 +212,6 @@ scp file USERNAME@lucia:path/to/destination
 ```
 scp USERNAME@lucia:path/to/file path/to/destination/in/localmachine 
 ```
-
 
 # 9- Other useful links 
 
